@@ -3,7 +3,7 @@
 head=0
 tails=0
 
-for((i=0;i<10;i++))
+while [[ $head -lt 21 && $tails -lt 21 ]]
 do
   randomcheck=$(($RANDOM%2))
   if [ $randomcheck -eq 0 ]
@@ -18,3 +18,13 @@ done
 
 echo "Heads occured $head times"
 echo "Tails occured $tails times"
+
+if [ $head -gt $tails ]
+then
+    echo "Heads win"
+elif [ $tails -gt $head ]
+then
+    echo "Tails wins"
+else
+    echo "tie"
+fi
