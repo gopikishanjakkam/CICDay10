@@ -30,3 +30,9 @@ do
 done
 
 echo "computation results in decending order "${valuesarray[@]}
+
+echo "computation results in ascending order "
+for((i=${#valuesarray[@]}-1;i>=0;i--))
+do
+  echo ${valuesarray[$i]}
+done
