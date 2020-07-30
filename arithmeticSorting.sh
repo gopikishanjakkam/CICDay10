@@ -4,7 +4,11 @@ read -p "Enter a value:" a
 read -p "Enter b value:" b
 read -p "Enter c value:" c
 
-echo $a $b $c | awk '{print $1+$2*$3}'
-echo $a $b $c | awk '{print $1*$2+$3}'
-echo $a $b $c | awk '{print $3+$1/$2}'
-echo $a $b $c | awk '{print $1%$2+$3}'
+declare -A computation
+computation[a+b*c]=$(echo $a $b $c | awk '{print $1+$2*$3}')
+computation[a*b+c]=$(echo $a $b $c | awk '{print $1*$2+$3}')
+computation[c+a/b]=$(echo $a $b $c | awk '{print $3+$1/$2}')
+computation[a%b+c]=$(echo $a $b $c | awk '{print $1%$2+$3}')
+
+echo ${!computation[@]}
+echo ${computation[@]}
