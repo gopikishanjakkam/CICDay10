@@ -3,7 +3,7 @@
 head=0
 tails=0
 
-while [[ $head -lt 21 && $tails -lt 21 ]]
+while [[ $head -le 21 && $tails -le 21 ]]
 do
   randomcheck=$(($RANDOM%2))
   if [ $randomcheck -eq 0 ]
