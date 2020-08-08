@@ -1,5 +1,4 @@
 #!/bin/bash -x
-
 n=15
 declare -A singlet
 singlet[H]=0
@@ -26,10 +25,8 @@ do
   randomcheck=$(($RANDOM%2));
   if [ $randomcheck -eq 0 ];
   then
-      echo Heads
       singlet[H]=$((${singlet[H]}+1));
   else
-      echo Tails
       singlet[T]=$((${singlet[T]}+1));
   fi
 done
@@ -85,19 +82,55 @@ do
   fi
 done
 
-echo "percentage of H="$((${singlet[H]}*100/$n))
-echo "percentage of T="$((${singlet[T]}*100/$n))
+echo "percentage of H="$(echo ${singlet[H]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of T="$(echo ${singlet[T]} 100 $n | awk '{print $1*$2/$3}')
 
-echo "percentage of HH="$((${Doublet[HH]}*100/$n))
-echo "percentage of HT="$((${Doublet[HT]}*100/$n))
-echo "percentage of TH="$((${Doublet[TH]}*100/$n))
-echo "percentage of TT="$((${Doublet[TT]}*100/$n))
+echo "percentage of HH="$(echo ${Doublet[HH]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of HT="$(echo ${Doublet[HT]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of TH="$(echo ${Doublet[TH]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of TT="$(echo ${Doublet[TT]} 100 $n | awk '{print $1*$2/$3}')
 
-echo "percentage of HHH="$((${Triplet[HHH]}*100/$n))
-echo "percentage of HHT="$((${Triplet[HHT]}*100/$n))
-echo "percentage of HTH="$((${Triplet[HTH]}*100/$n))
-echo "percentage of THH="$((${Triplet[THH]}*100/$n))
-echo "percentage of HTT="$((${Triplet[HTT]}*100/$n))
-echo "percentage of THT="$((${Triplet[THT]}*100/$n))
-echo "percentage of TTH="$((${Triplet[TTH]}*100/$n))
-echo "percentage of TTT="$((${Triplet[TTT]}*100/$n))
+echo "percentage of HHH="$(echo ${Triplet[HHH]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of HHT="$(echo ${Triplet[HHT]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of HTH="$(echo ${Triplet[HTH]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of THH="$(echo ${Triplet[THH]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of HTT="$(echo ${Triplet[HTT]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of THT="$(echo ${Triplet[THT]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of TTH="$(echo ${Triplet[TTH]} 100 $n | awk '{print $1*$2/$3}')
+echo "percentage of TTT="$(echo ${Triplet[TTT]} 100 $n | awk '{print $1*$2/$3}')
+
+x=0
+for index in ${!singlet[@]}
+do
+  if [ ${singlet[$index]} -gt $x ]
+  then
+      x=${singlet[$index]}
+      Smax=$index
+  fi
+done
+
+echo "maximum winning combination in singlet is "$Smax" with "$(echo ${singlet[$Smax]} 100 $n | awk '{print $1*$2/$3}')"%"
+
+y=0
+for index in ${!Doublet[@]}
+do
+  if [ ${Doublet[$index]} -gt $y ]
+  then
+      y=${Doublet[$index]}
+      Dmax=$index
+  fi
+done
+
+echo "maximum winning combination in Doublet is "$Dmax" with "$(echo ${Doublet[$Dmax]} 100 $n | awk '{print $1*$2/$3}')"%"
+
+z=0
+for index in ${!Triplet[@]}
+do
+  if [ ${Triplet[$index]} -gt $z ]
+  then
+      z=${Triplet[$index]}
+      Tmax=$index
+  fi
+done
+
+echo "maximum winning combination in Triplet is "$Tmax" with "$(echo ${Triplet[$Tmax]} 100 $n | awk '{print $1*$2/$3}')"%"
